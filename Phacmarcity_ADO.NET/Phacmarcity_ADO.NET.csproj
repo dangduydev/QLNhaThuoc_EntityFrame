@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04CA3936-1A4C-470C-A45C-1B95B5C1F9BC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Phacmarcity_ADO.NET</RootNamespace>
+    <AssemblyName>Phacmarcity_ADO.NET</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BS layer\BLDrugSales.cs" />
+    <Compile Include="BS layer\BLHangSX.cs" />
+    <Compile Include="BS layer\BLKhachHang.cs" />
+    <Compile Include="BS layer\BLLogin.cs" />
+    <Compile Include="BS layer\BLNhanVien.cs" />
+    <Compile Include="BS layer\BLPhieuNhap.cs" />
+    <Compile Include="BS layer\BLProduce_Product.cs" />
+    <Compile Include="BS layer\BLThuoc.cs" />
+    <Compile Include="BS layer\BL_Supplier.cs" />
+    <Compile Include="Class\AppSettings.cs" />
+    <Compile Include="Class\PhieuNhapDTO.cs" />
+    <Compile Include="Class\PhieuXuatDTO.cs" />
+    <Compile Include="Class\StringConvert.cs" />
+    <Compile Include="DB_layer\DBMain.cs" />
+    <Compile Include="ENUM\Cls_Enum.cs" />
+    <Compile Include="Frm_Client.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Client.Designer.cs">
+      <DependentUpon>Frm_Client.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_DrugSales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_DrugSales.Designer.cs">
+      <DependentUpon>Frm_DrugSales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Employees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Employees.Designer.cs">
+      <DependentUpon>Frm_Employees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Enter_Product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Enter_Product.Designer.cs">
+      <DependentUpon>Frm_Enter_Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Home.Designer.cs">
+      <DependentUpon>Frm_Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Login.Designer.cs">
+      <DependentUpon>Frm_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Manufacturer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Manufacturer.Designer.cs">
+      <DependentUpon>Frm_Manufacturer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Medicine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Medicine.Designer.cs">
+      <DependentUpon>Frm_Medicine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Produce_Product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Produce_Product.Designer.cs">
+      <DependentUpon>Frm_Produce_Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_ReportPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ReportPhieuNhap.Designer.cs">
+      <DependentUpon>Frm_ReportPhieuNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_ReportPhieuXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ReportPhieuXuat.Designer.cs">
+      <DependentUpon>Frm_ReportPhieuXuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Supplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Supplier.Designer.cs">
+      <DependentUpon>Frm_Supplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dsPhieuNhapReport.cs">
+      <DependentUpon>dsPhieuNhapReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dsPhieuNhapReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPhieuNhapReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dsPhieuXuatReport.cs">
+      <DependentUpon>dsPhieuXuatReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dsPhieuXuatReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPhieuXuatReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QLNhaThuoc.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhaThuoc.dbml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Frm_Client.resx">
+      <DependentUpon>Frm_Client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_DrugSales.resx">
+      <DependentUpon>Frm_DrugSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Employees.resx">
+      <DependentUpon>Frm_Employees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Enter_Product.resx">
+      <DependentUpon>Frm_Enter_Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Home.resx">
+      <DependentUpon>Frm_Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Login.resx">
+      <DependentUpon>Frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Manufacturer.resx">
+      <DependentUpon>Frm_Manufacturer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Medicine.resx">
+      <DependentUpon>Frm_Medicine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Produce_Product.resx">
+      <DependentUpon>Frm_Produce_Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ReportPhieuNhap.resx">
+      <DependentUpon>Frm_ReportPhieuNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ReportPhieuXuat.resx">
+      <DependentUpon>Frm_ReportPhieuXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Supplier.resx">
+      <DependentUpon>Frm_Supplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ReportPhieuNhap.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportPhieuXuat.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="App.Config" />
+    <None Include="Model\dsPhieuNhapReport.xsc">
+      <DependentUpon>dsPhieuNhapReport.xsd</DependentUpon>
+    </None>
+    <None Include="Model\dsPhieuNhapReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPhieuNhapReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Model\dsPhieuNhapReport.xss">
+      <DependentUpon>dsPhieuNhapReport.xsd</DependentUpon>
+    </None>
+    <None Include="Model\dsPhieuXuatReport.xsc">
+      <DependentUpon>dsPhieuXuatReport.xsd</DependentUpon>
+    </None>
+    <None Include="Model\dsPhieuXuatReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPhieuXuatReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Model\dsPhieuXuatReport.xss">
+      <DependentUpon>dsPhieuXuatReport.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Phacmarcity_ADO.NET.Model.CTPhieuXuat.datasource" />
+    <None Include="Properties\DataSources\Phacmarcity_ADO.NET.Model.dsPhieuXuatReport.datasource" />
+    <None Include="Properties\DataSources\Phacmarcity_ADO.NET.Model.PhieuXuat.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\add.png" />
+    <None Include="QLNhaThuoc.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>QLNhaThuoc.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="QLNhaThuoc.dbml.layout">
+      <DependentUpon>QLNhaThuoc.dbml</DependentUpon>
+    </None>
+    <None Include="Resources\card1.png" />
+    <None Include="Resources\see_feedback1.png" />
+    <None Include="Resources\report1.png" />
+    <None Include="Resources\production1.png" />
+    <None Include="Resources\PhieuXuat1.jpg" />
+    <None Include="Resources\PhieuNhap1.png" />
+    <None Include="Resources\notes1.png" />
+    <None Include="Resources\nha_cung_cap1.png" />
+    <None Include="Resources\medicine1.png" />
+    <None Include="Resources\logo1.png" />
+    <None Include="Resources\group1.png" />
+    <None Include="Resources\employee %281%291.png" />
+    <None Include="Resources\content-creator1.png" />
+    <None Include="Resources\BoYTe1.jpg" />
+    <None Include="Resources\bill1.png" />
+    <None Include="Resources\bacsi1.jpg" />
+    <None Include="Resources\add1.png" />
+    <Content Include="Resources\bacsi.jpg" />
+    <Content Include="Resources\bill.png" />
+    <Content Include="Resources\BoYTe.jpg" />
+    <Content Include="Resources\card.png" />
+    <Content Include="Resources\content-creator.png" />
+    <Content Include="Resources\employee %281%29.png" />
+    <Content Include="Resources\group.png" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\medicine.png" />
+    <Content Include="Resources\nha_cung_cap.png" />
+    <Content Include="Resources\notes.png" />
+    <Content Include="Resources\PhieuNhap.png" />
+    <Content Include="Resources\PhieuXuat.jpg" />
+    <Content Include="Resources\production.png" />
+    <Content Include="Resources\report.png" />
+    <Content Include="Resources\see_feedback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
