@@ -111,6 +111,12 @@
     <Compile Include="Class\PhieuNhapDTO.cs" />
     <Compile Include="Class\PhieuXuatDTO.cs" />
     <Compile Include="Class\StringConvert.cs" />
+    <Compile Include="CTPhieuNhap.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CTPhieuXuat.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB_layer\DBMain.cs" />
     <Compile Include="ENUM\Cls_Enum.cs" />
     <Compile Include="Frm_Client.cs">
@@ -185,6 +191,12 @@
     <Compile Include="Frm_Supplier.Designer.cs">
       <DependentUpon>Frm_Supplier.cs</DependentUpon>
     </Compile>
+    <Compile Include="HangSX.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KhachHang.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\dsPhieuNhapReport.cs">
       <DependentUpon>dsPhieuNhapReport.xsd</DependentUpon>
     </Compile>
@@ -201,12 +213,48 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPhieuXuatReport.xsd</DependentUpon>
     </Compile>
+    <Compile Include="NhaCungCap.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuNhap.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuXuat.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QLNhaThuoc.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLNhaThuoc.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="QLNhaThuocModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhaThuocModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QLNhaThuocModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QLNhaThuocModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhaThuocModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaiKhoan.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Thuoc.cs">
+      <DependentUpon>QLNhaThuocModel.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Frm_Client.resx">
       <DependentUpon>Frm_Client.cs</DependentUpon>
@@ -298,6 +346,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="QLNhaThuocModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNhaThuocModel.edmx</DependentUpon>
+      <LastGenOutput>QLNhaThuocModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="QLNhaThuocModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNhaThuocModel.edmx</DependentUpon>
+      <LastGenOutput>QLNhaThuocModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Resources\add.png" />
     <None Include="QLNhaThuoc.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -306,6 +364,13 @@
     </None>
     <None Include="QLNhaThuoc.dbml.layout">
       <DependentUpon>QLNhaThuoc.dbml</DependentUpon>
+    </None>
+    <EntityDeploy Include="QLNhaThuocModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLNhaThuocModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="QLNhaThuocModel.edmx.diagram">
+      <DependentUpon>QLNhaThuocModel.edmx</DependentUpon>
     </None>
     <None Include="Resources\card1.png" />
     <None Include="Resources\see_feedback1.png" />
@@ -346,6 +411,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
