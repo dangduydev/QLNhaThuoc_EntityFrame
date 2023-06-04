@@ -21,7 +21,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var taiKhoan = qlNT.TaiKhoans.SingleOrDefault(tk => tk.MaNhanVien == user && tk.MatKhau == password);
                 if (taiKhoan != null)
                 {

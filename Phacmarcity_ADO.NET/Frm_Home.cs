@@ -73,9 +73,11 @@ namespace Phacmarcity_ADO.NET
             }
         }
 
-        private void picXemPhanHoi_Click_1(object sender, EventArgs e)
+
+        private void picDoanhThuThuoc_Click(object sender, EventArgs e)
         {
             Form frm = new Frm_DrugSales();
+            frm.ShowDialog();
         }
     }
 }

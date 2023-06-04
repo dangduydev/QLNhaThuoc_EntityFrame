@@ -51,7 +51,7 @@ namespace Phacmarcity_ADO.NET
                 dgvHangSX.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 // Đưa dữ liệu lên DataGridView 
-                dgvHangSX.DataSource = dbTP.LayHangSX();
+                dgvHangSX.DataSource = dbTP.LayHangSanXuat();
                 // Thay đổi độ rộng cột 
                 dgvHangSX.AutoResizeColumns();
                 // Xóa trống các đối tượng trong Panel 

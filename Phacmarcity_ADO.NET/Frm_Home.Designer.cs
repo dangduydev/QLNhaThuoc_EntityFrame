@@ -32,6 +32,7 @@ namespace Phacmarcity_ADO.NET
         {
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
@@ -42,12 +43,6 @@ namespace Phacmarcity_ADO.NET
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.picPhanHoi = new System.Windows.Forms.PictureBox();
             this.picPhieuXuat = new System.Windows.Forms.PictureBox();
             this.picPhieuNhap = new System.Windows.Forms.PictureBox();
@@ -56,11 +51,15 @@ namespace Phacmarcity_ADO.NET
             this.picNhanVien = new System.Windows.Forms.PictureBox();
             this.picThuoc = new System.Windows.Forms.PictureBox();
             this.picDoanhThuThuoc = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPhanHoi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPhieuXuat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPhieuNhap)).BeginInit();
@@ -69,7 +68,8 @@ namespace Phacmarcity_ADO.NET
             ((System.ComponentModel.ISupportInitialize)(this.picNhanVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picThuoc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoanhThuThuoc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -93,6 +93,17 @@ namespace Phacmarcity_ADO.NET
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1312, 87);
             this.panel1.TabIndex = 159;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Phacmarcity_ADO.NET.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(108, 87);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 174;
+            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -218,79 +229,6 @@ namespace Phacmarcity_ADO.NET
             this.label6.TabIndex = 185;
             this.label6.Text = "Phiếu nhập";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.label2.ForeColor = System.Drawing.Color.Maroon;
-            this.label2.Location = new System.Drawing.Point(626, 517);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(561, 32);
-            this.label2.TabIndex = 171;
-            this.label2.Text = "Nhà thuốc uy tín tại Tp.Hồ Chí Minh, Việt Nam";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Beige;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.Firebrick;
-            this.label3.Location = new System.Drawing.Point(587, 552);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(630, 20);
-            this.label3.TabIndex = 172;
-            this.label3.Text = "Địa chỉ :2 Võ Văn Ngân, Phường Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Mi" +
-    "nh.";
-            // 
-            // label4
-            // 
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.label4.ForeColor = System.Drawing.Color.Maroon;
-            this.label4.Location = new System.Drawing.Point(661, 438);
-            this.label4.Name = "label4";
-            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(482, 49);
-            this.label4.TabIndex = 173;
-            this.label4.Text = "Tại Pharmacy, mỗi dược sỹ luôn tận tâm phục vụ và được đào tạo để hoàn thành xuất" +
-    " sắc những sứ mệnh được giao";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label4.UseWaitCursor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.SystemColors.Info;
-            this.label5.Font = new System.Drawing.Font("Leelawadee UI", 28.2F, System.Drawing.FontStyle.Bold);
-            this.label5.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label5.Location = new System.Drawing.Point(430, 102);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(244, 62);
-            this.label5.TabIndex = 176;
-            this.label5.Text = "Pharmacy";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Phacmarcity_ADO.NET.Properties.Resources.BoYTe;
-            this.pictureBox3.Location = new System.Drawing.Point(1036, 92);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(123, 79);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 175;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Phacmarcity_ADO.NET.Properties.Resources.bacsi;
-            this.pictureBox2.Location = new System.Drawing.Point(640, 176);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(519, 239);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 174;
-            this.pictureBox2.TabStop = false;
-            // 
             // picPhanHoi
             // 
             this.picPhanHoi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -391,18 +329,80 @@ namespace Phacmarcity_ADO.NET
             this.picDoanhThuThuoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDoanhThuThuoc.TabIndex = 177;
             this.picDoanhThuThuoc.TabStop = false;
-            this.picDoanhThuThuoc.Click += new System.EventHandler(this.picXemPhanHoi_Click_1);
+            this.picDoanhThuThuoc.Click += new System.EventHandler(this.picDoanhThuThuoc_Click);
             // 
-            // pictureBox1
+            // label2
             // 
-            this.pictureBox1.Image = global::Phacmarcity_ADO.NET.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(108, 87);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 174;
-            this.pictureBox1.TabStop = false;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label2.ForeColor = System.Drawing.Color.Maroon;
+            this.label2.Location = new System.Drawing.Point(626, 517);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(561, 32);
+            this.label2.TabIndex = 171;
+            this.label2.Text = "Nhà thuốc uy tín tại Tp.Hồ Chí Minh, Việt Nam";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Beige;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.Firebrick;
+            this.label3.Location = new System.Drawing.Point(587, 552);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(630, 20);
+            this.label3.TabIndex = 172;
+            this.label3.Text = "Địa chỉ :2 Võ Văn Ngân, Phường Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Mi" +
+    "nh.";
+            // 
+            // label4
+            // 
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.label4.ForeColor = System.Drawing.Color.Maroon;
+            this.label4.Location = new System.Drawing.Point(661, 438);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(482, 49);
+            this.label4.TabIndex = 173;
+            this.label4.Text = "Tại Pharmacy, mỗi dược sỹ luôn tận tâm phục vụ và được đào tạo để hoàn thành xuất" +
+    " sắc những sứ mệnh được giao";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label4.UseWaitCursor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Info;
+            this.label5.Font = new System.Drawing.Font("Leelawadee UI", 28.2F, System.Drawing.FontStyle.Bold);
+            this.label5.ForeColor = System.Drawing.Color.DarkCyan;
+            this.label5.Location = new System.Drawing.Point(430, 102);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(244, 62);
+            this.label5.TabIndex = 176;
+            this.label5.Text = "Pharmacy";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Phacmarcity_ADO.NET.Properties.Resources.BoYTe;
+            this.pictureBox3.Location = new System.Drawing.Point(1036, 92);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(123, 79);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 175;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Phacmarcity_ADO.NET.Properties.Resources.bacsi;
+            this.pictureBox2.Location = new System.Drawing.Point(640, 176);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(519, 239);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 174;
+            this.pictureBox2.TabStop = false;
             // 
             // Frm_Home
             // 
@@ -426,10 +426,9 @@ namespace Phacmarcity_ADO.NET
             this.Load += new System.EventHandler(this.Frm_Home_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPhanHoi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPhieuXuat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPhieuNhap)).EndInit();
@@ -438,7 +437,8 @@ namespace Phacmarcity_ADO.NET
             ((System.ComponentModel.ISupportInitialize)(this.picNhanVien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picThuoc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoanhThuThuoc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

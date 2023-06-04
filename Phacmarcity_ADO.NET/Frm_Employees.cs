@@ -49,7 +49,6 @@ namespace Phacmarcity_ADO.NET
                 reset();
                 // Đưa dữ liệu lên DataGridView 
                 dgvNhanVien.DataSource = dbTP.LayNhanVien();
-                dgvNhanVien.Columns["TaiKhoan"].Visible= false;
                 // Thay đổi độ rộng cột 
                 dgvNhanVien.AutoResizeColumns();
                 // Xóa trống các đối tượng trong Panel 

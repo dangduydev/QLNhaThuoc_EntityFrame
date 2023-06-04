@@ -86,3 +86,5 @@ C:\Users\DangDuy\Desktop\Code First\QLNhaThuoc_LinQ\QLNhaThuoc_LinQ\Phacmarcity_
 C:\Users\DangDuy\Desktop\Code First\QLNhaThuoc_LinQ\QLNhaThuoc_LinQ\Phacmarcity_ADO.NET\obj\Debug\Phacmarcity_ADO.NET.csproj.CopyComplete
 C:\Users\DangDuy\Desktop\Code First\QLNhaThuoc_LinQ\QLNhaThuoc_LinQ\Phacmarcity_ADO.NET\obj\Debug\Phacmarcity_ADO.NET.exe
 C:\Users\DangDuy\Desktop\Code First\QLNhaThuoc_LinQ\QLNhaThuoc_LinQ\Phacmarcity_ADO.NET\obj\Debug\Phacmarcity_ADO.NET.pdb
+C:\Users\DangDuy\Desktop\Code First\QLNhaThuoc_LinQ\QLNhaThuoc_LinQ\Phacmarcity_ADO.NET\bin\Debug\x86\SqlServerSpatial160.dll
+C:\Users\DangDuy\Desktop\Code First\QLNhaThuoc_LinQ\QLNhaThuoc_LinQ\Phacmarcity_ADO.NET\bin\Debug\x64\SqlServerSpatial160.dll

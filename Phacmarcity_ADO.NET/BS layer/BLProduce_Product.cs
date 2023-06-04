@@ -12,89 +12,44 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     class BLProduce_Product
     {
-        DBMain db = null;
-
-        public List<PhieuXuatDTO> LayPhieuXuat()
+        public DataTable LayPhieuXuat()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlntEntity = new QLNhaThuocEntities();
+            var tps =
+                    from px in qlntEntity.PhieuXuats
+                    join ctpx in qlntEntity.CTPhieuXuats on px.MaPX equals ctpx.MaPX
+                    select new
+                    {
+                        px.MaPX,
+                        px.MaNhanVien,
+                        px.MaKhachHang,
+                        ctpx.MaThuoc,
+                        ctpx.SoLuong,
+                        ctpx.DonGia,
+                        px.NgayXuat
+                    };
 
-            List<PhieuXuatDTO> phieuXuatList = (from px in qlNT.PhieuXuats
-                                                join ctpx in qlNT.CTPhieuXuats on px.MaPX equals ctpx.MaPX
-                                                select new PhieuXuatDTO
-                                                {
-                                                    MaPX = px.MaPX,
-                                                    MaNhanVien =px.MaNhanVien,
-                                                    MaKhachHang = px.MaKhachHang,
-                                                    NgayXuat = (DateTime)px.NgayXuat,
-                                                    MaThuoc = ctpx.MaThuoc,
-                                                    SoLuong = (int)ctpx.SoLuong,
-                                                    DonGia = ctpx.DonGia.ToString()
-                                                }).ToList();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã phiếu xuất");
+            dt.Columns.Add("Mã nhân viên");
+            dt.Columns.Add("Mã khách hàng");
+            dt.Columns.Add("Mã thuốc");
+            dt.Columns.Add("Số lượng");
+            dt.Columns.Add("Đơn giá");
+            dt.Columns.Add("Ngày xuất");
 
-            return phieuXuatList;
-        }
-        public bool ThemPhieuXuat(string MaPX,
-            string MaNhanVien,
-            string MaKhachHang,
-            string MaThuoc,
-            int SoLuong,
-            decimal DonGia, DateTime NgayXuat,
-            ref string err)
-        {
-            try
+            foreach (var p in tps)
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-
-                // Kiểm tra trùng mã phiếu xuất
-                if (qlNT.PhieuXuats.Any(px => px.MaPX == MaPX))
-                {
-                    err = "Mã phiếu nhập đã tồn tại.";
-                    return false;
-                }
-
-                // Tạo mới phiếu nhập và chi tiết phiếu nhập
-                PhieuXuat phieuXuat = new PhieuXuat
-                {
-                    MaPX = MaPX,
-                    MaNhanVien = MaNhanVien,
-                    MaKhachHang = MaKhachHang,
-                    NgayXuat = NgayXuat
-                };
-
-                CTPhieuXuat cTPhieuXuat = new CTPhieuXuat
-                {
-                    MaPX = MaPX,
-                    MaThuoc = MaThuoc,
-                    SoLuong = SoLuong,
-                    DonGia = DonGia
-                };
-
-                // Thêm phiếu xuất và chi tiết phiếu xuất
-                qlNT.PhieuXuats.InsertOnSubmit(phieuXuat);
-                qlNT.CTPhieuXuats.InsertOnSubmit(cTPhieuXuat);
-                qlNT.SubmitChanges();
-
-                // Cập nhật số lượng thuốc
-                var thuoc = qlNT.Thuocs.SingleOrDefault(th => th.MaThuoc == MaThuoc);
-                if (thuoc != null)
-                {
-                    thuoc.SoLuong -= SoLuong;
-                    qlNT.SubmitChanges();
-                }
-
-                return true;
+                dt.Rows.Add(p.MaPX, p.MaNhanVien, p.MaKhachHang, p.MaThuoc, p.SoLuong, p.DonGia, p.NgayXuat);
             }
-            catch (Exception ex)
-            {
-                err = ex.Message;
-                return false;
-            }
+
+            return dt;
         }
 
 
-        public List<PhieuXuatDTO> TimKhiemPhieuXuat(string input, string key)
+        public List<PhieuXuatDTO> TimKiemPhieuXuat(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
             List<PhieuXuatDTO> phieuXuatList = null;
 
             switch (input)
@@ -162,35 +117,114 @@ namespace Phacmarcity_ADO.NET.BS_layer
                                          DonGia = ctpx.DonGia.ToString()
                                      }).ToList();
                     break;
+
+                default:
+                    phieuXuatList = new List<PhieuXuatDTO>();
+                    break;
             }
 
             return phieuXuatList;
         }
 
-        public bool CapNhatPhieuXuat(string MaPX, string MaNhanVien, string MaKhachHang, string MaThuoc, int SoLuong, decimal DonGia, DateTime NgayXuat, ref string err)
+
+        public bool ThemPhieuXuat(string MaPX, string MaNhanVien, string MaKhachHang, DateTime NgayXuat, string MaThuoc, int SoLuong, decimal DonGia, ref string err)
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-                var khQuery = (from kh in qlNT.PhieuXuats
-                               where kh.MaPX == MaPX
-                               select kh).SingleOrDefault();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+
+                // Kiểm tra trùng mã phiếu nhập
+                if (qlNT.PhieuXuats.Any(px => px.MaPX == MaPX))
+                {
+                    err = "Mã phiếu nhập đã tồn tại.";
+                    return false;
+                }
+
+                // Tạo mới phiếu nhập và chi tiết phiếu nhập
+                PhieuXuat phieuXuat = new PhieuXuat
+                {
+                    MaPX = MaPX,
+                    MaNhanVien = MaNhanVien,
+                    MaKhachHang = MaKhachHang,
+                    NgayXuat = NgayXuat
+                };
+
+                CTPhieuXuat cTPhieuXuat = new CTPhieuXuat
+                {
+                    MaPX = MaPX,
+                    MaThuoc = MaThuoc,
+                    SoLuong = SoLuong,
+                    DonGia = DonGia
+                };
+
+                // Thêm phiếu nhập và chi tiết phiếu nhập
+                qlNT.PhieuXuats.Add(phieuXuat);
+                qlNT.CTPhieuXuats.Add(cTPhieuXuat);
+                qlNT.SaveChanges();
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+                return false;
+            }
+        }
+
+
+        public bool XoaPhieuXuat(ref string err, string MaPhieuXuat)
+        {
+            try
+            {
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+
+                var phieuXuat = (from px in qlNT.PhieuXuats
+                                 where px.MaPX == MaPhieuXuat
+                                 select px).SingleOrDefault();
+
+                var cTPhieuXuat = (from ctpx in qlNT.CTPhieuXuats
+                                   where ctpx.MaPX == MaPhieuXuat
+                                   select ctpx).SingleOrDefault();
+
+                qlNT.PhieuXuats.Attach(phieuXuat);
+                qlNT.CTPhieuXuats.Attach(cTPhieuXuat);
+
+                qlNT.PhieuXuats.Remove(phieuXuat);
+                qlNT.CTPhieuXuats.Remove(cTPhieuXuat);
+                qlNT.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+                return false;
+            }
+        }
+
+        public bool CapNhatPhieuXuat(string MaPX, string MaNhanVien, string MaKhachHang, DateTime NgayXuat, string MaThuoc, int SoLuong, decimal DonGia, ref string err)
+        {
+            try
+            {
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+                var khQuery = (from px in qlNT.PhieuXuats
+                               where px.MaPX == MaPX
+                               select px).SingleOrDefault();
 
                 khQuery.MaNhanVien = MaNhanVien;
                 khQuery.MaKhachHang = MaKhachHang;
                 khQuery.NgayXuat = NgayXuat;
 
 
-                var cTPhieuXuat = (from ct in qlNT.CTPhieuXuats
-                                   where ct.MaPX == MaPX
-                                   select ct).SingleOrDefault();
+                var cTPhieuXuat = (from ctpx in qlNT.CTPhieuXuats
+                                   where ctpx.MaPX == MaPX
+                                   select ctpx).SingleOrDefault();
 
                 cTPhieuXuat.MaThuoc = MaThuoc;
                 cTPhieuXuat.SoLuong = SoLuong;
                 cTPhieuXuat.DonGia = DonGia;
 
-
-                qlNT.SubmitChanges();
+                qlNT.SaveChanges();
 
                 return true;
             }
@@ -200,31 +234,5 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 return false;
             }
         }
-        public bool XoaPhieuXuat(ref string err, string MaPX)
-        {
-            try
-            {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-
-                var phieuXuat = from px in qlNT.PhieuXuats
-                                where px.MaPX == MaPX
-                                select px;
-
-                var cTPhieuXuat = from ctpx in qlNT.CTPhieuXuats
-                                  where ctpx.MaPX == MaPX
-                                  select ctpx;
-
-                qlNT.PhieuXuats.DeleteAllOnSubmit(phieuXuat);
-                qlNT.CTPhieuXuats.DeleteAllOnSubmit(cTPhieuXuat);
-                qlNT.SubmitChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                err = ex.Message;
-                return false;
-            }
-        }
-
     }
 }

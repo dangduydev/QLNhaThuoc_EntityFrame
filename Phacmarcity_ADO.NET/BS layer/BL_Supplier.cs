@@ -11,14 +11,26 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     internal class BL_Supplier
     {
-        public System.Data.Linq.Table<NhaCungCap> LayNCC()
+        public DataTable LayNCC()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-            return qlNT.NhaCungCaps;
+            QLNhaThuocEntities qlntEntity = new QLNhaThuocEntities();
+            var tps =
+            from p in qlntEntity.NhaCungCaps
+            select p;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã nhà cung cấp");
+            dt.Columns.Add("Tên nhà cung cấp");
+            dt.Columns.Add("Địa chỉ");
+            dt.Columns.Add("Thông tin đại diện");
+            foreach (var p in tps)
+            {
+                dt.Rows.Add(p.MaNhaCungCap, p.TenNhaCungCap, p.DiaChi, p.ThongTinDaiDien);
+            }
+            return dt;
         }
         public List<NhaCungCap> TimKiemNCC(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
 
             List<NhaCungCap> nhaCungCapList = null;
 
@@ -44,7 +56,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                         .Where(kh => kh.ThongTinDaiDien.Contains(key))
                         .ToList();
                     break;
-                
+
                 default:
                     nhaCungCapList = new List<NhaCungCap>(); // Trường hợp không hợp lệ
                     break;
@@ -58,14 +70,14 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 NhaCungCap kh = new NhaCungCap();
                 kh.MaNhaCungCap = MaNCC;
                 kh.TenNhaCungCap = TenNCC;
                 kh.DiaChi = DiaChi;
                 kh.ThongTinDaiDien = ThongTinDaiDien;
-                qlNT.NhaCungCaps.InsertOnSubmit(kh);
-                qlNT.NhaCungCaps.Context.SubmitChanges();
+                qlNT.NhaCungCaps.Add(kh);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -79,12 +91,13 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-                var khQuery = from kh in qlNT.NhaCungCaps
-                              where kh.MaNhaCungCap == MaNhaCungCap
-                              select kh;
-                qlNT.NhaCungCaps.DeleteAllOnSubmit(khQuery);
-                qlNT.SubmitChanges();
+
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+                var khQuery = (from kh in qlNT.NhaCungCaps
+                               where kh.MaNhaCungCap == MaNhaCungCap
+                               select kh).SingleOrDefault();
+                qlNT.NhaCungCaps.Attach(khQuery);
+                qlNT.NhaCungCaps.Remove(khQuery);
                 return true;
             }
             catch (Exception ex)
@@ -97,7 +110,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var khQuery = (from kh in qlNT.NhaCungCaps
                                where kh.MaNhaCungCap == MaNCC
                                select kh).SingleOrDefault();
@@ -106,7 +119,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                     khQuery.TenNhaCungCap = TenNCC;
                     khQuery.DiaChi = DiaChi;
                     khQuery.ThongTinDaiDien = ThongTinDaiDien;
-                    qlNT.SubmitChanges();
+                    qlNT.SaveChanges();
                 }
                 return true;
             }

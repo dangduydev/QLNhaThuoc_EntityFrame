@@ -70,7 +70,7 @@ namespace Phacmarcity_ADO.NET
         {
             try
             {
-                
+
                 // Đưa dữ liệu lên DataGridView 
                 dgvPhieuNhap.DataSource = dbTP.TimKiemPhieuNhap(input, key);
                 // Thay đổi độ rộng cột 
@@ -160,7 +160,7 @@ namespace Phacmarcity_ADO.NET
                     // Thực hiện lệnh 
                     //BLPhieuNhap blTp = new BLPhieuNhap();
                     dbTP.ThemPhieuNhap(this.txtMaPhieuNhap.Text, this.txtMaNhanVien.Text, this.txtMaNCC.Text, this.dtpNgayNhap.Value, this.txtMaThuoc.Text, int.Parse(this.txtSoLuong.Text), decimal.Parse(this.txtGia.Text), this.dtpNSX.Value, this.dtpHSD.Value, ref err);
-                   
+
                     // Load lại dữ liệu trên DataGridView 
                     LoadData();
                     reset();
@@ -339,5 +339,10 @@ namespace Phacmarcity_ADO.NET
 
         #endregion
 
+        private void btnPrintReview_Click(object sender, EventArgs e)
+        {
+            Form f = new Frm_ReportPhieuNhap();
+            f.ShowDialog();
+        }
     }
 }

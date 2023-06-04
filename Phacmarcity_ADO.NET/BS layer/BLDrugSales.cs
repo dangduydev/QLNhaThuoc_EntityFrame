@@ -10,34 +10,75 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     internal class BLDrugSales
     {
-
-        DBMain db = null;
-        public BLDrugSales()
-        {
-            db = new DBMain();
-        }
-
         public DataTable LaySLThuoc()
         {
-            string sqlString = "SELECT CTPhieuNhap.MaThuoc, Thuoc.TenThuoc, CTPhieuNhap.SoLuong AS 'So Luong Nhap', CTPhieuNhap.DonGia AS 'Gia Nhap', CTPhieuXuat.SoLuong AS 'So Luong Ban', CTPhieuXuat.DonGia AS 'Gia Ban', (CTPhieuXuat.SoLuong * (CTPhieuXuat.DonGia - CTPhieuNhap.DonGia)) AS DoanhThu FROM CTPhieuNhap JOIN CTPhieuXuat ON CTPhieuNhap.MaThuoc = CTPhieuXuat.MaThuoc JOIN Thuoc ON CTPhieuNhap.MaThuoc = Thuoc.MaThuoc";
+            try
+            {
+                using (QLNhaThuocEntities qlNT = new QLNhaThuocEntities())
+                {
+                    var query = from ctPhieuNhap in qlNT.CTPhieuNhaps
+                                join ctPhieuXuat in qlNT.CTPhieuXuats on ctPhieuNhap.MaThuoc equals ctPhieuXuat.MaThuoc
+                                join thuoc in qlNT.Thuocs on ctPhieuNhap.MaThuoc equals thuoc.MaThuoc
+                                select new
+                                {
+                                    ctPhieuNhap.MaThuoc,
+                                    thuoc.TenThuoc,
+                                    SoLuongNhap = ctPhieuNhap.SoLuong,
+                                    GiaNhap = ctPhieuNhap.DonGia,
+                                    SoLuongBan = ctPhieuXuat.SoLuong,
+                                    GiaBan = ctPhieuXuat.DonGia,
+                                    DoanhThu = ctPhieuXuat.SoLuong * (ctPhieuXuat.DonGia - ctPhieuNhap.DonGia)
+                                };
 
-            DataTable dataTable = db.ExecuteQueryDataSet(sqlString, CommandType.Text).Tables[0];
+                    DataTable dataTable = new DataTable();
+                    dataTable.Columns.Add("MaThuoc");
+                    dataTable.Columns.Add("TenThuoc");
+                    dataTable.Columns.Add("So Luong Nhap");
+                    dataTable.Columns.Add("Gia Nhap");
+                    dataTable.Columns.Add("So Luong Ban");
+                    dataTable.Columns.Add("Gia Ban");
+                    dataTable.Columns.Add("DoanhThu");
 
-            return dataTable;
+                    foreach (var item in query)
+                    {
+                        dataTable.Rows.Add(item.MaThuoc, item.TenThuoc, item.SoLuongNhap, item.GiaNhap, item.SoLuongBan, item.GiaBan, item.DoanhThu);
+                    }
+
+                    return dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ tại đây (err = ex.Message)
+                return null;
+            }
         }
+
 
         public decimal TongDoanhThu(ref string err)
         {
-            decimal tongDoanhThu = 0;
-            string sqlString = "SELECT CTPhieuNhap.MaThuoc, Thuoc.TenThuoc, CTPhieuNhap.SoLuong AS 'So Luong Nhap', CTPhieuNhap.DonGia AS 'Gia Nhap', CTPhieuXuat.SoLuong AS 'So Luong Ban', CTPhieuXuat.DonGia AS 'Gia Ban', (CTPhieuXuat.SoLuong * (CTPhieuXuat.DonGia - CTPhieuNhap.DonGia)) AS DoanhThu FROM CTPhieuNhap JOIN CTPhieuXuat ON CTPhieuNhap.MaThuoc = CTPhieuXuat.MaThuoc JOIN Thuoc ON CTPhieuNhap.MaThuoc = Thuoc.MaThuoc";
+            try
+            {
+                decimal tongDoanhThu = 0;
+                using (QLNhaThuocEntities qlNT = new QLNhaThuocEntities())
+                {
+                    var query = from ctPhieuNhap in qlNT.CTPhieuNhaps
+                                join ctPhieuXuat in qlNT.CTPhieuXuats on ctPhieuNhap.MaThuoc equals ctPhieuXuat.MaThuoc
+                                join thuoc in qlNT.Thuocs on ctPhieuNhap.MaThuoc equals thuoc.MaThuoc
+                                select ctPhieuXuat.SoLuong * (ctPhieuXuat.DonGia - ctPhieuNhap.DonGia);
 
-            DataTable dataTable = db.ExecuteQueryDataSet(sqlString, CommandType.Text).Tables[0];
+                    tongDoanhThu = query.Sum() ?? 0;// ?? là khi null lấy giá trị là 0
+                }
 
-            tongDoanhThu = dataTable.AsEnumerable()
-                .Sum(row => row.Field<decimal>("DoanhThu"));
-
-            return tongDoanhThu;
+                return tongDoanhThu;
+            }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+                return 0;
+            }
         }
+
 
 
     }

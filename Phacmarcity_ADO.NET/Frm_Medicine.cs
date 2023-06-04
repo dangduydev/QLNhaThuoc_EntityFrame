@@ -50,8 +50,6 @@ namespace Phacmarcity_ADO.NET
                 dbTP.CapNhatSLThuoc(ref err);
                 // Đưa dữ liệu lên DataGridView 
                 dgvThuoc.DataSource = dbTP.LayThuoc();
-                dgvThuoc.Columns["NhaCungCap"].Visible= false;
-                dgvThuoc.Columns["HangSX"].Visible= false;
                 // Thay đổi độ rộng cột 
                 dgvThuoc.AutoResizeColumns();
                 // Xóa trống các đối tượng trong Panel 

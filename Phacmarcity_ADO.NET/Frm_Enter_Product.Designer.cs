@@ -72,6 +72,7 @@ namespace Phacmarcity_ADO.NET
             this.picThuoc = new System.Windows.Forms.PictureBox();
             this.picHangSX = new System.Windows.Forms.PictureBox();
             this.picNCC = new System.Windows.Forms.PictureBox();
+            this.btnPrintReview = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuNhap)).BeginInit();
             this.pnlMain.SuspendLayout();
@@ -574,11 +575,26 @@ namespace Phacmarcity_ADO.NET
             this.picNCC.TabStop = false;
             this.picNCC.Click += new System.EventHandler(this.picNCC_Click);
             // 
+            // btnPrintReview
+            // 
+            this.btnPrintReview.BackColor = System.Drawing.Color.DarkCyan;
+            this.btnPrintReview.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btnPrintReview.ForeColor = System.Drawing.Color.White;
+            this.btnPrintReview.Location = new System.Drawing.Point(1139, 92);
+            this.btnPrintReview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPrintReview.Name = "btnPrintReview";
+            this.btnPrintReview.Size = new System.Drawing.Size(133, 61);
+            this.btnPrintReview.TabIndex = 195;
+            this.btnPrintReview.Text = "Print review";
+            this.btnPrintReview.UseVisualStyleBackColor = false;
+            this.btnPrintReview.Click += new System.EventHandler(this.btnPrintReview_Click);
+            // 
             // Frm_Enter_Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1312, 658);
+            this.Controls.Add(this.btnPrintReview);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlMain);
@@ -673,5 +689,6 @@ namespace Phacmarcity_ADO.NET
         private TextBox txtMaThuoc;
         private TextBox txtMaNCC;
         private DateTimePicker dtpTimKiem;
+        private Button btnPrintReview;
     }
 }

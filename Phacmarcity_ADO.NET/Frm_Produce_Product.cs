@@ -68,7 +68,7 @@ namespace Phacmarcity_ADO.NET
             try
             {
                 // Đưa dữ liệu lên DataGridView 
-                dgvPhieuXuat.DataSource = dbTP.TimKhiemPhieuXuat(input, tukhoa);
+                dgvPhieuXuat.DataSource = dbTP.TimKiemPhieuXuat(input, tukhoa);
                 // Thay đổi độ rộng cột 
                 dgvPhieuXuat.AutoResizeColumns();
                 // Xóa trống các đối tượng trong Panel 
@@ -216,7 +216,7 @@ namespace Phacmarcity_ADO.NET
                 {
                     // Thực hiện lệnh
                     BLProduce_Product blTp = new BLProduce_Product();
-                    blTp.ThemPhieuXuat(this.txtMaPX.Text, this.txtMaNhanVien.Text, this.txtMaKhachHang.Text, this.txtMaThuoc.Text, int.Parse((this.txtSoLuong.Text)), decimal.Parse(this.txtGia.Text), this.dateTimePicker1.Value, ref err);
+                    blTp.ThemPhieuXuat(this.txtMaPX.Text, this.txtMaNhanVien.Text, this.txtMaKhachHang.Text, this.dateTimePicker1.Value, this.txtMaThuoc.Text, int.Parse(this.txtSoLuong.Text), decimal.Parse(this.txtGia.Text), ref err);
                     // Load lại dữ liệu trên DataGridView
                     LoadData();
                     // Thông báo
@@ -231,7 +231,7 @@ namespace Phacmarcity_ADO.NET
             {
                 // Thực hiện lệnh
                 BLProduce_Product blTp = new BLProduce_Product();
-                blTp.CapNhatPhieuXuat(this.txtMaPX.Text, this.txtMaNhanVien.Text, this.txtMaKhachHang.Text, this.txtMaThuoc.Text, int.Parse((this.txtSoLuong.Text)), decimal.Parse(this.txtGia.Text), this.dateTimePicker1.Value, ref err);// Load lại dữ liệu trên DataGridView
+                blTp.CapNhatPhieuXuat(this.txtMaPX.Text, this.txtMaNhanVien.Text, this.txtMaKhachHang.Text, this.dateTimePicker1.Value, this.txtMaThuoc.Text, int.Parse(this.txtSoLuong.Text), decimal.Parse(this.txtGia.Text), ref err);// Load lại dữ liệu trên DataGridView
                 LoadData();
                 reset();
                 // Thông báo
