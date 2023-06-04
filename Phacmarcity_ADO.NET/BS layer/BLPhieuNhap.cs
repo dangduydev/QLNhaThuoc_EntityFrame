@@ -204,14 +204,6 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 qlNT.CTPhieuNhaps.Add(cTPhieuNhap);
                 qlNT.SaveChanges();
 
-                // Cập nhật số lượng thuốc
-                var thuoc = qlNT.Thuocs.SingleOrDefault(th => th.MaThuoc == MaThuoc);
-                if (thuoc != null)
-                {
-                    thuoc.SoLuong += SoLuong;
-                    qlNT.SaveChanges();
-                }
-
                 return true;
             }
             catch (Exception ex)
