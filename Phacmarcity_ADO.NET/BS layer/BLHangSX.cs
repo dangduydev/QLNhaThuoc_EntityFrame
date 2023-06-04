@@ -11,14 +11,26 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     class BLHangSX
     {
-        public System.Data.Linq.Table<HangSX> LayHangSX()
+        public DataTable LayHangSanXuat()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-            return qlNT.HangSXes;
+            QLNhaThuocEntities qlntEntity = new QLNhaThuocEntities();
+            var tps =
+            from p in qlntEntity.HangSXes
+            select p;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã hãng sản xuất");
+            dt.Columns.Add("Tên hãng");
+            dt.Columns.Add("Quốc gia");
+
+            foreach (var p in tps)
+            {
+                dt.Rows.Add(p.MaHangSX, p.TenHang, p.QuocGia);
+            }
+            return dt;
         }
         public List<HangSX> TimKiemHangSX(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
 
             List<HangSX> HangSXList = null;
 
@@ -50,13 +62,13 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 HangSX kh = new HangSX();
                 kh.MaHangSX = MaHangSX;
                 kh.TenHang = TenHang;
                 kh.QuocGia = QuocGia;
-                qlNT.HangSXes.InsertOnSubmit(kh);
-                qlNT.HangSXes.Context.SubmitChanges();
+                qlNT.HangSXes.Add(kh);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -70,12 +82,12 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-                var khQuery = from kh in qlNT.HangSXes
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+                var khQuery = (from kh in qlNT.HangSXes
                               where kh.MaHangSX == MaHangSX
-                              select kh;
-                qlNT.HangSXes.DeleteAllOnSubmit(khQuery);
-                qlNT.SubmitChanges();
+                              select kh).SingleOrDefault();
+                qlNT.HangSXes.Remove(khQuery);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -88,7 +100,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var khQuery = (from kh in qlNT.HangSXes
                                where kh.MaHangSX == MaHangSX
                                select kh).SingleOrDefault();
@@ -96,7 +108,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 {
                     khQuery.TenHang = TenHang;
                     khQuery.QuocGia = QuocGia;
-                    qlNT.SubmitChanges();
+                    qlNT.SaveChanges();
                 }
                 return true;
             }

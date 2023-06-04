@@ -11,14 +11,26 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     class BLKhachHang
     {
-        public System.Data.Linq.Table<KhachHang> LayKhachHang()
+        public DataTable LayKhachHang()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-            return qlNT.KhachHangs;
+            QLNhaThuocEntities qlntEntity = new QLNhaThuocEntities();
+            var tps =
+            from p in qlntEntity.KhachHangs
+            select p;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã khách hàng");
+            dt.Columns.Add("Tên khách hàng");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Địa chỉ");
+            foreach (var p in tps)
+            {
+                dt.Rows.Add(p.MaKhachHang, p.TenKhachHang,p.SoDienThoai,p.DiaChi);
+            }
+            return dt;
         }
         public List<KhachHang> TimKiemKhachHang(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
 
             List<KhachHang> khachHangList = null;
 
@@ -58,14 +70,14 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 KhachHang kh = new KhachHang();
                 kh.MaKhachHang = MaKhachHang;
                 kh.TenKhachHang = TenKhachHang;
                 kh.DiaChi = DiaChi;
                 kh.SoDienThoai = SoDienThoai;
-                qlNT.KhachHangs.InsertOnSubmit(kh);
-                qlNT.KhachHangs.Context.SubmitChanges();
+                qlNT.KhachHangs.Add(kh);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -80,12 +92,12 @@ namespace Phacmarcity_ADO.NET.BS_layer
             try
             {
 
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-                var khQuery = from kh in qlNT.KhachHangs
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+                var khQuery = (from kh in qlNT.KhachHangs
                               where kh.MaKhachHang == MaKhachHang
-                              select kh;
-                qlNT.KhachHangs.DeleteAllOnSubmit(khQuery);
-                qlNT.SubmitChanges();
+                              select kh).SingleOrDefault();
+                qlNT.KhachHangs.Attach(khQuery);
+                qlNT.KhachHangs.Remove(khQuery);
                 return true;
             }
             catch (Exception ex)
@@ -98,7 +110,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var khQuery = (from kh in qlNT.KhachHangs
                                where kh.MaKhachHang == MaKhachHang
                                select kh).SingleOrDefault();
@@ -107,7 +119,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                     khQuery.TenKhachHang = TenKhachHang;
                     khQuery.DiaChi = DiaChi;
                     khQuery.SoDienThoai = SoDienThoai;
-                    qlNT.SubmitChanges();
+                    qlNT.SaveChanges();
                 }
                 return true;
             }

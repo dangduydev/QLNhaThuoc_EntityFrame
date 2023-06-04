@@ -17,33 +17,48 @@ namespace Phacmarcity_ADO.NET.BS_layer
     class BLPhieuNhap
     {
         DBMain db = null;
-        public List<PhieuNhapDTO> LayPhieuNhap()
+        public DataTable LayPhieuNhap()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlntEntity = new QLNhaThuocEntities();
+            var tps =
+                    from pn in qlntEntity.PhieuNhaps
+                    join ctpn in qlntEntity.CTPhieuNhaps on pn.MaPN equals ctpn.MaPN
+                    select new
+                    {
+                        pn.MaPN,
+                        pn.MaNhanVien,
+                        pn.MaNhaCungCap,
+                        ctpn.MaThuoc,
+                        ctpn.SoLuong,
+                        ctpn.DonGia,
+                        pn.NgayNhap,
+                        ctpn.NgaySX,
+                        ctpn.NgayHH
+                    };
 
-            List<PhieuNhapDTO> phieuNhapList = (from pn in qlNT.PhieuNhaps
-                                                join ctpn in qlNT.CTPhieuNhaps on pn.MaPN equals ctpn.MaPN
-                                                select new PhieuNhapDTO
-                                                {
-                                                    MaPN = pn.MaPN,
-                                                    MaNhanVien = pn.MaNhanVien,
-                                                    MaNhaCungCap = pn.MaNhaCungCap,
-                                                    NgayNhap = (DateTime)pn.NgayNhap,
-                                                    MaThuoc = ctpn.MaThuoc,
-                                                    SoLuong = (int)ctpn.SoLuong,
-                                                    DonGia = ctpn.DonGia.ToString(),
-                                                    NgaySX = (DateTime)ctpn.NgaySX,
-                                                    NgayHH = (DateTime)ctpn.NgayHH
-                                                }).ToList();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã phiếu nhập");
+            dt.Columns.Add("Mã nhân viên");
+            dt.Columns.Add("Mã nhà cung cấp");
+            dt.Columns.Add("Mã thuốc");
+            dt.Columns.Add("Số lượng");
+            dt.Columns.Add("Đơn giá");
+            dt.Columns.Add("Ngày nhập");
+            dt.Columns.Add("Ngày sản xuất");
+            dt.Columns.Add("Ngày hết hạn");
 
-            return phieuNhapList;
+            foreach (var p in tps)
+            {
+                dt.Rows.Add(p.MaPN, p.MaNhanVien, p.MaNhaCungCap, p.MaThuoc, p.SoLuong, p.DonGia, p.NgayNhap, p.NgaySX, p.NgayHH);
+            }
+
+            return dt;
         }
-
 
 
         public List<PhieuNhapDTO> TimKiemPhieuNhap(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
             List<PhieuNhapDTO> phieuNhapList = null;
 
             switch (input)
@@ -156,7 +171,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
 
                 // Kiểm tra trùng mã phiếu nhập
                 if (qlNT.PhieuNhaps.Any(pn => pn.MaPN == MaPN))
@@ -185,16 +200,16 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 };
 
                 // Thêm phiếu nhập và chi tiết phiếu nhập
-                qlNT.PhieuNhaps.InsertOnSubmit(phieuNhap);
-                qlNT.CTPhieuNhaps.InsertOnSubmit(cTPhieuNhap);
-                qlNT.SubmitChanges();
+                qlNT.PhieuNhaps.Add(phieuNhap);
+                qlNT.CTPhieuNhaps.Add(cTPhieuNhap);
+                qlNT.SaveChanges();
 
                 // Cập nhật số lượng thuốc
                 var thuoc = qlNT.Thuocs.SingleOrDefault(th => th.MaThuoc == MaThuoc);
                 if (thuoc != null)
                 {
                     thuoc.SoLuong += SoLuong;
-                    qlNT.SubmitChanges();
+                    qlNT.SaveChanges();
                 }
 
                 return true;
@@ -211,19 +226,22 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
 
-                var phieuNhap = from pn in qlNT.PhieuNhaps
-                                where pn.MaPN == MaPhieuNhap
-                                select pn;
+                var phieuNhap = (from pn in qlNT.PhieuNhaps
+                                 where pn.MaPN == MaPhieuNhap
+                                 select pn).SingleOrDefault();
 
-                var cTPhieuNhap = from ctpn in qlNT.CTPhieuNhaps
-                                  where ctpn.MaPN == MaPhieuNhap
-                                  select ctpn;
+                var cTPhieuNhap = (from ctpn in qlNT.CTPhieuNhaps
+                                   where ctpn.MaPN == MaPhieuNhap
+                                   select ctpn).SingleOrDefault();
 
-                qlNT.PhieuNhaps.DeleteAllOnSubmit(phieuNhap);
-                qlNT.CTPhieuNhaps.DeleteAllOnSubmit(cTPhieuNhap);
-                qlNT.SubmitChanges();
+                qlNT.PhieuNhaps.Attach(phieuNhap);
+                qlNT.CTPhieuNhaps.Attach(cTPhieuNhap);
+
+                qlNT.PhieuNhaps.Remove(phieuNhap);
+                qlNT.CTPhieuNhaps.Remove(cTPhieuNhap);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -235,11 +253,9 @@ namespace Phacmarcity_ADO.NET.BS_layer
 
         public bool CapNhatPhieuNhap(string MaPN, string MaNhanVien, string MaNhaCungCap, DateTime NgayNhap, string MaThuoc, int SoLuong, decimal DonGia, DateTime NgaySX, DateTime NgayHH, ref string err)
         {
-            /*string sqlString = "Update PhieuNhap Set MaNhanVien= '" + MaNhanVien + "', MaNhaCungCap= '" + MaNhaCungCap + "', NgayNhap ='" + NgayNhap + "' Where MaPN='" + MaPhieuNhap + "'";
-            return db.MyExecuteNonQuery(sqlString, CommandType.Text, ref err);*/
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var khQuery = (from kh in qlNT.PhieuNhaps
                                where kh.MaPN == MaPN
                                select kh).SingleOrDefault();
@@ -259,7 +275,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 cTPhieuNhap.NgayHH = NgayHH;
                 cTPhieuNhap.NgaySX = NgaySX;
 
-                qlNT.SubmitChanges();
+                qlNT.SaveChanges();
 
                 return true;
             }

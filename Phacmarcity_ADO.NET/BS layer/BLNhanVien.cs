@@ -11,14 +11,31 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     class BLNhanVien
     {
-        public System.Data.Linq.Table<NhanVien> LayNhanVien()
+        public DataTable LayNhanVien()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-            return qlNT.NhanViens;
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+            DataTable dt = new DataTable();
+            var tps = 
+            from p in qlNT.NhanViens
+            select p;
+
+            dt.Columns.Add("Mã nhân viên");
+            dt.Columns.Add("Họ tên");
+            dt.Columns.Add("Ngày sinh");
+            dt.Columns.Add("Bộ phận");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Ngày vào làm");
+
+            foreach (var p in tps)
+            {
+                dt.Rows.Add(p.MaNhanVien, p.HoTen, p.NgaySinh, p.BoPhan,p.SoDienThoai, p.NgayVaoLam);
+            }
+            return dt;
         }
+        
         public List<NhanVien> TimKiemNhanVien(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
 
             List<NhanVien> NhanVienList = null;
 
@@ -67,7 +84,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 NhanVien kh = new NhanVien();
                 kh.MaNhanVien = MaNhanVien;
                 kh.HoTen = HoTen;
@@ -75,8 +92,8 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 kh.BoPhan = BoPhan;
                 kh.NgaySinh = NgaySinh;
                 kh.NgayVaoLam = NgayVaoLam;
-                qlNT.NhanViens.InsertOnSubmit(kh);
-                qlNT.NhanViens.Context.SubmitChanges();
+                qlNT.NhanViens.Add(kh);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -90,12 +107,12 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-                var khQuery = from kh in qlNT.NhanViens
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+                var khQuery = (from kh in qlNT.NhanViens
                               where kh.MaNhanVien == MaNhanVien
-                              select kh;
-                qlNT.NhanViens.DeleteAllOnSubmit(khQuery);
-                qlNT.SubmitChanges();
+                              select kh).SingleOrDefault();
+                qlNT.NhanViens.Remove(khQuery);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -108,7 +125,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var khQuery = (from kh in qlNT.NhanViens
                                where kh.MaNhanVien == MaNhanVien
                                select kh).SingleOrDefault();
@@ -119,7 +136,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                     khQuery.SoDienThoai = SoDienThoai;
                     khQuery.NgayVaoLam = NgayVaoLam;
                     khQuery.BoPhan= BoPhan;
-                    qlNT.SubmitChanges();
+                    qlNT.SaveChanges();
                 }
                 return true;
             }

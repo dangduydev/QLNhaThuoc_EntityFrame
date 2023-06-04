@@ -1,6 +1,7 @@
 ﻿using Phacmarcity_ADO.NET.ENUM;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +10,29 @@ namespace Phacmarcity_ADO.NET.BS_layer
 {
     public class BLThuoc
     {
-        public System.Data.Linq.Table<Thuoc> LayThuoc()
+        public DataTable LayThuoc()
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-            return qlNT.Thuocs;
+            QLNhaThuocEntities qlntEntity = new QLNhaThuocEntities();
+            var tps =
+            from p in qlntEntity.Thuocs
+            select p;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã thuốc");
+            dt.Columns.Add("Tên thuốc");
+            dt.Columns.Add("Mã hãng sản xuất");
+            dt.Columns.Add("Mã nhà cung cấp");
+            dt.Columns.Add("Số lượng");
+            dt.Columns.Add("Công dụng");
+            dt.Columns.Add("Ghi chú");
+            foreach (var p in tps)
+            {
+                dt.Rows.Add(p.MaThuoc, p.TenThuoc, p.MaHangSX, p.MaNhaCungCap, p.SoLuong, p.CongDung, p.GhiChu);
+            }
+            return dt;
         }
         public List<Thuoc> TimKiemThuoc(string input, string key)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities  qlNT = new QLNhaThuocEntities();
 
             List<Thuoc> ThuocList = null;
 
@@ -54,7 +70,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 Thuoc kh = new Thuoc();
                 kh.MaThuoc = MaThuoc;
                 kh.TenThuoc = TenThuoc;
@@ -63,8 +79,8 @@ namespace Phacmarcity_ADO.NET.BS_layer
                 kh.CongDung = CongDung;
                 kh.GhiChu = GhiChu;
                 kh.SoLuong = 0;
-                qlNT.Thuocs.InsertOnSubmit(kh);
-                qlNT.Thuocs.Context.SubmitChanges();
+                qlNT.Thuocs.Add(kh);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -78,12 +94,12 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
-                var khQuery = from kh in qlNT.Thuocs
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
+                var khQuery = (from kh in qlNT.Thuocs
                               where kh.MaThuoc == MaThuoc
-                              select kh;
-                qlNT.Thuocs.DeleteAllOnSubmit(khQuery);
-                qlNT.SubmitChanges();
+                              select kh).SingleOrDefault();
+                qlNT.Thuocs.Remove(khQuery);
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -94,7 +110,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         }
         public bool CapNhatSLThuoc(ref string err)
         {
-            QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+            QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
             var tongNhap = from ct in qlNT.CTPhieuNhaps
                            group ct by ct.MaThuoc into grp
                            select new
@@ -130,7 +146,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
 
             try
             {
-                qlNT.SubmitChanges();
+                qlNT.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -143,7 +159,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
         {
             try
             {
-                QLNhaThuocDataContext qlNT = new QLNhaThuocDataContext();
+                QLNhaThuocEntities qlNT = new QLNhaThuocEntities();
                 var khQuery = (from kh in qlNT.Thuocs
                                where kh.MaThuoc == MaThuoc
                                select kh).SingleOrDefault();
@@ -154,7 +170,7 @@ namespace Phacmarcity_ADO.NET.BS_layer
                     khQuery.MaNhaCungCap = MaNhaCungCap;
                     khQuery.CongDung = CongDung;
                     khQuery.GhiChu = GhiChu;
-                    qlNT.SubmitChanges();
+                    qlNT.SaveChanges();
                 }
                 return true;
             }
